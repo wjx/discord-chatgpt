@@ -54,6 +54,24 @@ async fn handler(bot: &ProvidedBot, placeholder_text: &str, system_prompt: &str,
         store::set(&channel_id.to_string(), json!(false), None);
     }
 
+    if content.starts_with("/select") {
+        discord.send_message(
+            channel_id.into(),
+            &serde_json::json!({
+                "content": "selecting..."
+            }),
+        ).await.unwrap();
+        return;
+    } else {
+        discord.send_message(
+            channel_id.into(),
+            &serde_json::json!({
+                "content": "return..."
+            }),
+        ).await.unwrap();
+        return;
+    }
+
     let placeholder  = discord.send_message(
         channel_id.into(),
         &serde_json::json!({

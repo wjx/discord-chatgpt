@@ -55,7 +55,7 @@ async fn handler(bot: &ProvidedBot, placeholder_text: &str, system_prompt: &str,
     }
 
     if content.starts_with("/select") {
-        discord.send_message(
+        _= discord.send_message(
             channel_id.into(),
             &serde_json::json!({
                 "content": "selecting..."
@@ -63,7 +63,7 @@ async fn handler(bot: &ProvidedBot, placeholder_text: &str, system_prompt: &str,
         ).await.unwrap();
         return;
     } else {
-        discord.send_message(
+        _ = discord.send_message(
             channel_id.into(),
             &serde_json::json!({
                 "content": "return..."

@@ -24,7 +24,7 @@ pub async fn run() {
 }
 
 async fn handler(bot: &ProvidedBot, placeholder_text: &str, system_prompt: &str, msg: Message) {
-    log::info!("======= msg: {}", msg);
+    log::info!("======= msg: {:?}", msg);
     let discord = bot.get_client();
     if msg.author.bot {
         log::info!("ignored bot message");

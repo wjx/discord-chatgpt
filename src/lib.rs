@@ -72,41 +72,41 @@ async fn handler(bot: &ProvidedBot, placeholder_text: &str, system_prompt: &str,
         return;
     }
 
-    let placeholder  = discord.send_message(
-        channel_id.into(),
-        &serde_json::json!({
-            "content": placeholder_text
-        }),
-    ).await.unwrap();
+    // let placeholder  = discord.send_message(
+    //     channel_id.into(),
+    //     &serde_json::json!({
+    //         "content": placeholder_text
+    //     }),
+    // ).await.unwrap();
 
-    let mut openai = OpenAIFlows::new();
-    openai.set_retry_times(3);
-    let co = ChatOptions {
-        // model: ChatModel::GPT4,
-        model: ChatModel::GPT35Turbo,
-        restart: restart,
-        system_prompt: Some(system_prompt),
-        ..Default::default()
-    };
+    // let mut openai = OpenAIFlows::new();
+    // openai.set_retry_times(3);
+    // let co = ChatOptions {
+    //     // model: ChatModel::GPT4,
+    //     model: ChatModel::GPT35Turbo,
+    //     restart: restart,
+    //     system_prompt: Some(system_prompt),
+    //     ..Default::default()
+    // };
 
-    match openai.chat_completion(&channel_id.to_string(), &content, &co).await {
-        Ok(r) => {
-            _ = discord.edit_message(
-                channel_id.into(), placeholder.id.into(),
-                &serde_json::json!({
-                    "content": r.choice
-                }),
-            ).await;
-        }
-        Err(e) => {
-            _ = discord.edit_message(
-                channel_id.into(), placeholder.id.into(),
-                &serde_json::json!({
-                    "content": "Sorry, an error has occured. Please try again later!"
-                }),
-            ).await;
-            log::error!("OpenAI returns error: {}", e);
-        }
-    }
+    // match openai.chat_completion(&channel_id.to_string(), &content, &co).await {
+    //     Ok(r) => {
+    //         _ = discord.edit_message(
+    //             channel_id.into(), placeholder.id.into(),
+    //             &serde_json::json!({
+    //                 "content": r.choice
+    //             }),
+    //         ).await;
+    //     }
+    //     Err(e) => {
+    //         _ = discord.edit_message(
+    //             channel_id.into(), placeholder.id.into(),
+    //             &serde_json::json!({
+    //                 "content": "Sorry, an error has occured. Please try again later!"
+    //             }),
+    //         ).await;
+    //         log::error!("OpenAI returns error: {}", e);
+    //     }
+    // }
 
 }
